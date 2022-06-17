@@ -37,33 +37,38 @@ Public Class Form1
         Dim hitung As Decimal = 0
         Dim hasil As String = ""
 
-        Dim com1 As SerialPort
-        com1 = New SerialPort(port, 2400, Parity.None, 7, StopBits.One)
-        If com1.IsOpen Then
-            com1.Close()
-        End If
-        Try
-            com1.Open()
+        'Dim com1 As SerialPort
+        'com1 = New SerialPort(port, 2400, Parity.None, 7, StopBits.One)
+        'If com1.IsOpen Then
+        '    com1.Close()
+        'End If
+        'Try
+        '    com1.Open()
 
-        Catch ex As Exception
-            ' returnStr = ex.ToString()
+        'Catch ex As Exception
+        '    ' returnStr = ex.ToString()
 
-            com1.Close()
-            Exit Sub
-        End Try
-        com1.ReadTimeout = 10000
+        '    com1.Close()
+        '    Exit Sub
+        'End Try
+        'com1.ReadTimeout = 10000
         Dim Incoming As String = "0"
         Do
-            'hitung = hitung + 1
+            hitung = hitung + 1
             If (worker.CancellationPending = True) Then
                 e.Cancel = True
+                'com1.Close()
                 Exit Do
             Else
                 ' Perform a time consuming operation and report progress.
-                Incoming = com1.ReadLine()
+                'Incoming = com1.ReadLine()
+                Incoming = "gg," & hitung.ToString()
                 hasil = Incoming & vbCrLf
+                'Dim r As Integer = hasil.Length()
+                'Dim words As String() = hasil.Split(New Char() {","c})
                 System.Threading.Thread.Sleep(100)
-                worker.ReportProgress(hasil)
+                worker.ReportProgress(hitung, hasil)
+
             End If
         Loop
 
@@ -72,7 +77,8 @@ Public Class Form1
     ' This event handler updates the progress.
     Private Sub backgroundWorker1_ProgressChanged(ByVal sender As System.Object,
     ByVal e As ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
-        result.Text = (e.ProgressPercentage.ToString())
+        'result.Text = (e.ProgressPercentage.ToString())
+        result.Text = e.UserState
     End Sub
 
     ' This event handler deals with the results of the background operation.
