@@ -2,12 +2,19 @@
 Imports System.IO.Ports
 Public Class Form1
     Dim port As String
+    Dim strhasil As String()
     Public Sub New()
         InitializeComponent()
         BackgroundWorker1.WorkerReportsProgress = True
         BackgroundWorker1.WorkerSupportsCancellation = True
+        GetSerialPortNames()
     End Sub
-
+    Sub GetSerialPortNames()
+        ' Show all available COM ports.
+        For Each sp As String In My.Computer.Ports.SerialPortNames
+            ComboBox1.Items.Add(sp)
+        Next
+    End Sub
     Private Sub startAsyncButton_Click(ByVal sender As System.Object,
     ByVal e As System.EventArgs) Handles btn_start.Click
         If ComboBox1.Text = "" Then
@@ -64,10 +71,13 @@ Public Class Form1
                 'Incoming = com1.ReadLine()
                 Incoming = "gg," & hitung.ToString()
                 hasil = Incoming & vbCrLf
-                'Dim r As Integer = hasil.Length()
-                'Dim words As String() = hasil.Split(New Char() {","c})
-                System.Threading.Thread.Sleep(100)
-                worker.ReportProgress(hitung, hasil)
+                Dim words As String() = hasil.Split(New Char() {","c})
+                Dim r As Integer = words.Length()
+                If r > 1 Then
+                    System.Threading.Thread.Sleep(100)
+                    worker.ReportProgress(hitung, words)
+                End If
+
 
             End If
         Loop
@@ -78,7 +88,11 @@ Public Class Form1
     Private Sub backgroundWorker1_ProgressChanged(ByVal sender As System.Object,
     ByVal e As ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
         'result.Text = (e.ProgressPercentage.ToString())
-        result.Text = e.UserState
+        strhasil = e.UserState
+        'Dim words As String() = strhasil.Split(New Char() {","c})
+        result.Text = strhasil(1)
+
+        result.ForeColor = Color.DarkRed
     End Sub
 
     ' This event handler deals with the results of the background operation.
@@ -92,4 +106,5 @@ Public Class Form1
             result.Text = "Done!"
         End If
     End Sub
+
 End Class

@@ -36,7 +36,7 @@ Partial Class Form1
         Me.result.Font = New System.Drawing.Font("Microsoft Sans Serif", 200.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.result.Location = New System.Drawing.Point(12, 9)
         Me.result.Name = "result"
-        Me.result.Size = New System.Drawing.Size(448, 260)
+        Me.result.Size = New System.Drawing.Size(448, 321)
         Me.result.TabIndex = 0
         Me.result.Text = "NPMI"
         Me.result.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -61,11 +61,13 @@ Partial Class Form1
         Me.stop_btn.Text = "Disconnect"
         Me.stop_btn.UseVisualStyleBackColor = True
         '
+        'BackgroundWorker1
+        '
+        '
         'ComboBox1
         '
         Me.ComboBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"COM1", "COM2", "COM3", "COM4", "COM5", "COM6"})
         Me.ComboBox1.Location = New System.Drawing.Point(71, 361)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
