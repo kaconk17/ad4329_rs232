@@ -41,42 +41,42 @@ Public Class Form1
     ByVal e As DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         Dim worker As BackgroundWorker = CType(sender, BackgroundWorker)
 
-        Dim hitung As Decimal = 0
+        'Dim hitung As Decimal = 0
         Dim hasil As String = ""
 
-        'Dim com1 As SerialPort
-        'com1 = New SerialPort(port, 2400, Parity.None, 7, StopBits.One)
-        'If com1.IsOpen Then
-        '    com1.Close()
-        'End If
-        'Try
-        '    com1.Open()
+        Dim com1 As SerialPort
+        com1 = New SerialPort(port, 2400, Parity.None, 7, StopBits.One)
+        If com1.IsOpen Then
+            com1.Close()
+        End If
+        Try
+            com1.Open()
 
-        'Catch ex As Exception
-        '    ' returnStr = ex.ToString()
+        Catch ex As Exception
+            ' returnStr = ex.ToString()
 
-        '    com1.Close()
-        '    Exit Sub
-        'End Try
-        'com1.ReadTimeout = 10000
+            com1.Close()
+            Exit Sub
+        End Try
+        com1.ReadTimeout = 10000
         Dim Incoming As String = "0"
         Do
-            hitung = hitung + 1
+            'hitung = hitung + 1
             If (worker.CancellationPending = True) Then
                 e.Cancel = True
-                'com1.Close()
+                com1.Close()
                 Exit Do
             Else
                 ' Perform a time consuming operation and report progress.
-                'Incoming = com1.ReadLine()
-                Incoming = "gg," & hitung.ToString()
+                Incoming = com1.ReadLine()
+                ' Incoming = "gg," & hitung.ToString()
                 hasil = Incoming & vbCrLf
                 Dim words As String() = hasil.Split(New Char() {","c})
                 Dim r As Integer = words.Length()
-                If r > 1 Then
-                    System.Threading.Thread.Sleep(100)
-                    worker.ReportProgress(hitung, words)
+                If r > 2 Then
+                    worker.ReportProgress(10, words)
                 End If
+                System.Threading.Thread.Sleep(100)
 
 
             End If
@@ -90,9 +90,20 @@ Public Class Form1
         'result.Text = (e.ProgressPercentage.ToString())
         strhasil = e.UserState
         'Dim words As String() = strhasil.Split(New Char() {","c})
-        result.Text = strhasil(1)
+        Dim ba As String = strhasil(2)
+        Dim st As String = strhasil(0)
 
+        result.Text = ba.Substring(3)
         result.ForeColor = Color.DarkRed
+
+        result.BackColor = SystemColors.ControlLight
+        If st = "ST" Then
+            result.ForeColor = Color.White
+
+            result.BackColor = Color.Black
+
+        End If
+
     End Sub
 
     ' This event handler deals with the results of the background operation.

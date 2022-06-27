@@ -33,10 +33,10 @@ Partial Class Form1
         'result
         '
         Me.result.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.result.Font = New System.Drawing.Font("Microsoft Sans Serif", 200.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.result.Font = New System.Drawing.Font("Microsoft Sans Serif", 220.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.result.Location = New System.Drawing.Point(12, 9)
         Me.result.Name = "result"
-        Me.result.Size = New System.Drawing.Size(448, 321)
+        Me.result.Size = New System.Drawing.Size(448, 347)
         Me.result.TabIndex = 0
         Me.result.Text = "NPMI"
         Me.result.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
